@@ -1,0 +1,19 @@
+[Unit]
+Description=Ubuntu Boot Monitoring Agent
+Documentation=https://github.com/danielrosehill/Ubuntu-AI-Boot-Agent
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+# Wait 180 seconds (3 minutes) after desktop is ready
+ExecStartPre=/bin/sleep 180
+ExecStart=/home/daniel/repos/github/Ubuntu-AI-Boot-Agent/.venv/bin/python -m ubuntu_boot_agent
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-0
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+WorkingDirectory=/home/daniel/repos/github/Ubuntu-AI-Boot-Agent
+Restart=no
+
+[Install]
+WantedBy=graphical-session.target
